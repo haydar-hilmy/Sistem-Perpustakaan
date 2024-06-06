@@ -203,8 +203,8 @@ public class Main extends Application {
         alamatPustakawan = new TableColumn<>("alamatPustakawan");
         tableViewPustakawan.getColumns().addAll(idPustakawan, namaPustakawan, alamatPustakawan);
         idPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, Integer>("idPustakawan"));
-        namaPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, String>("namaPustakawan"));
-        alamatPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, String>("alamatPustakawan"));
+        namaPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, String>("nama"));
+        alamatPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, String>("alamat"));
         sp.getChildren().add(tableViewPustakawan);
         return sp;
     }
@@ -271,7 +271,7 @@ public class Main extends Application {
             }
             teksAktif(false, "buku");
             buttonAktif(false);
-            clearTeks();
+            clearTeks("buku");
             flagEdit = true;
         });
         bEdit.setOnAction(e -> {
@@ -287,7 +287,7 @@ public class Main extends Application {
         });
         bAdd.setOnAction(e -> {
             flagEdit = false;
-            clearTeks();
+            clearTeks("buku");
             teksAktif(true, "buku");
             buttonAktif(true);
         });
@@ -298,7 +298,7 @@ public class Main extends Application {
         bDel.setOnAction(e -> {
             int idx = tableView.getSelectionModel().getSelectedIndex();
             tableView.getItems().remove(idx);
-            clearTeks();
+            clearTeks("buku");
         });
         TilePane tp1 = new TilePane();
         // TilePane tp2 = new TilePane();
@@ -356,7 +356,7 @@ public class Main extends Application {
             }
             teksAktif(false, "pustakawan");
             buttonAktif(false);
-            clearTeks();
+            clearTeks("pustakawan");
             flagEdit = true;
         });
         bEdit.setOnAction(e -> {
@@ -370,7 +370,7 @@ public class Main extends Application {
         });
         bAdd.setOnAction(e -> {
             flagEdit = false;
-            clearTeks();
+            clearTeks("pustakawan");
             teksAktif(true, "pustakawan");
             buttonAktif(true);
         });
@@ -381,7 +381,7 @@ public class Main extends Application {
         bDel.setOnAction(e -> {
             int idx = tableViewPustakawan.getSelectionModel().getSelectedIndex();
             tableViewPustakawan.getItems().remove(idx);
-            clearTeks();
+            clearTeks("pustakawan");
         });
         TilePane tp1 = new TilePane();
         tp1.getChildren().addAll(bAdd, bEdit, bDel, bUpdate, bCancel);
@@ -438,7 +438,7 @@ public class Main extends Application {
             }
             teksAktif(false, "anggota");
             buttonAktif(false);
-            clearTeks();
+            clearTeks("anggota");
             flagEdit = true;
         });
         bEdit.setOnAction(e -> {
@@ -453,7 +453,7 @@ public class Main extends Application {
         });
         bAdd.setOnAction(e -> {
             flagEdit = false;
-            clearTeks();
+            clearTeks("anggota");
             teksAktif(true, "anggota");
             buttonAktif(true);
         });
@@ -464,7 +464,7 @@ public class Main extends Application {
         bDel.setOnAction(e -> {
             int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
             tableViewAnggota.getItems().remove(idx);
-            clearTeks();
+            clearTeks("anggota");
         });
         TilePane tp1 = new TilePane();
         tp1.getChildren().addAll(bAdd, bEdit, bDel, bUpdate, bCancel);
