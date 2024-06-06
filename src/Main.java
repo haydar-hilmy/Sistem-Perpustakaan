@@ -269,14 +269,14 @@ public class Main extends Application {
                 int idx = tableView.getSelectionModel().getSelectedIndex();
                 tableView.getItems().set(idx, b);
             }
-            teksAktif(false);
+            teksAktif(false, "buku");
             buttonAktif(false);
             clearTeks();
             flagEdit = true;
         });
         bEdit.setOnAction(e -> {
             buttonAktif(true);
-            teksAktif(true);
+            teksAktif(true, "buku");
             flagEdit = true;
             int idx = tableView.getSelectionModel().getSelectedIndex();
             tfIdBuku.setText(String.valueOf(tableView.getItems().get(idx).getIdBuku()));
@@ -288,11 +288,11 @@ public class Main extends Application {
         bAdd.setOnAction(e -> {
             flagEdit = false;
             clearTeks();
-            teksAktif(true);
+            teksAktif(true, "buku");
             buttonAktif(true);
         });
         bCancel.setOnAction(e -> {
-            teksAktif(false);
+            teksAktif(false, "buku");
             buttonAktif(false);
         });
         bDel.setOnAction(e -> {
@@ -311,7 +311,7 @@ public class Main extends Application {
         gp.addRow(4, lbPenulis, tfPenulis);
         gp.addRow(5, lbTahunTerbit, tfTahunTerbit);
         gp.addRow(6, new Label(""), tp1);
-        teksAktif(false);
+        teksAktif(false, "buku");
         buttonAktif(false);
         return gp;
     }
@@ -354,14 +354,14 @@ public class Main extends Application {
                 int idx = tableViewPustakawan.getSelectionModel().getSelectedIndex();
                 tableViewPustakawan.getItems().set(idx, p);
             }
-            teksAktifPustakawan(false);
+            teksAktif(false, "pustakawan");
             buttonAktif(false);
             clearTeks();
             flagEdit = true;
         });
         bEdit.setOnAction(e -> {
             buttonAktif(true);
-            teksAktifPustakawan(true);
+            teksAktif(true, "pustakawan");
             flagEdit = true;
             int idx = tableViewPustakawan.getSelectionModel().getSelectedIndex();
             tfIdPustakawan.setText(String.valueOf(tableViewPustakawan.getItems().get(idx).getIdPustakawan()));
@@ -371,11 +371,11 @@ public class Main extends Application {
         bAdd.setOnAction(e -> {
             flagEdit = false;
             clearTeks();
-            teksAktifPustakawan(true);
+            teksAktif(true, "pustakawan");
             buttonAktif(true);
         });
         bCancel.setOnAction(e -> {
-            teksAktifPustakawan(false);
+            teksAktif(false, "pustakawan");
             buttonAktif(false);
         });
         bDel.setOnAction(e -> {
@@ -390,7 +390,7 @@ public class Main extends Application {
         gp.addRow(2, lbNama, tfNamaPustakawan);
         gp.addRow(3, lbAlamat, tfAlamatPustakawan);
         gp.addRow(6, new Label(""), tp1);
-        teksAktifPustakawan(false);
+        teksAktif(false, "pustakawan");
         buttonAktif(false);
         return gp;
     }
@@ -436,14 +436,14 @@ public class Main extends Application {
                 int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
                 tableViewAnggota.getItems().set(idx, ag);
             }
-            teksAktifAnggota(false);
+            teksAktif(false, "anggota");
             buttonAktif(false);
             clearTeks();
             flagEdit = true;
         });
         bEdit.setOnAction(e -> {
             buttonAktif(true);
-            teksAktifAnggota(true);
+            teksAktif(true, "anggota");
             flagEdit = true;
             int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
             tfIdAnggota.setText(String.valueOf(tableViewAnggota.getItems().get(idx).getIdAnggota()));
@@ -454,11 +454,11 @@ public class Main extends Application {
         bAdd.setOnAction(e -> {
             flagEdit = false;
             clearTeks();
-            teksAktifAnggota(true);
+            teksAktif(true, "anggota");
             buttonAktif(true);
         });
         bCancel.setOnAction(e -> {
-            teksAktifAnggota(false);
+            teksAktif(false, "anggota");
             buttonAktif(false);
         });
         bDel.setOnAction(e -> {
@@ -474,7 +474,7 @@ public class Main extends Application {
         gp.addRow(3, lbAlamat, tfAlamatAnggota);
         gp.addRow(3, lbInstansi, tfInstansiAnggota);
         gp.addRow(6, new Label(""), tp1);
-        teksAktifAnggota(false);
+        teksAktif(false, "anggota");
         buttonAktif(false);
         return gp;
     }
@@ -520,42 +520,41 @@ public class Main extends Application {
         bCancel.setDisable(!nonAktif);
     }
 
-    public void teksAktif(boolean aktif) {
-        tfIdBuku.setEditable(aktif);
-        tfJudul.setEditable(aktif);
-        tfPenerbit.setEditable(aktif);
-        tfPenulis.setEditable(aktif);
-        tfTahunTerbit.setEditable(aktif);
+    public void teksAktif(boolean aktif, String div) {
+        if(div == "buku"){
+            tfIdBuku.setEditable(aktif);
+            tfJudul.setEditable(aktif);
+            tfPenerbit.setEditable(aktif);
+            tfPenulis.setEditable(aktif);
+            tfTahunTerbit.setEditable(aktif);
+        } else if(div == "pustakawan"){
+            tfIdPustakawan.setEditable(aktif);
+            tfNamaPustakawan.setEditable(aktif);
+            tfAlamatPustakawan.setEditable(aktif);
+        } else if(div == "anggota"){
+            tfIdAnggota.setEditable(aktif);
+            tfNamaAnggota.setEditable(aktif);
+            tfAlamatAnggota.setEditable(aktif);
+            tfInstansiAnggota.setEditable(aktif);
+        }
     }
 
-    public void teksAktifPustakawan(boolean aktif){
-        tfIdPustakawan.setEditable(aktif);
-        tfNamaPustakawan.setEditable(aktif);
-        tfAlamatPustakawan.setEditable(aktif);
-    }
-
-    public void teksAktifAnggota(boolean aktif){
-        tfIdAnggota.setEditable(aktif);
-        tfNamaAnggota.setEditable(aktif);
-        tfAlamatAnggota.setEditable(aktif);
-        tfInstansiAnggota.setEditable(aktif);
-    }
-
-    public void clearTeks() {
-        tfIdBuku.setText("");
-        tfJudul.setText("");
-        tfPenerbit.setText("");
-        tfPenulis.setText("");
-        tfTahunTerbit.setText("");
-
-        tfIdPustakawan.setText("");
-        tfNamaPustakawan.setText("");
-        tfAlamatPustakawan.setText("");
-
-        tfIdAnggota.setText("");
-        tfNamaAnggota.setText("");
-        tfAlamatAnggota.setText("");
-        tfInstansiAnggota.setText("");
-
+    public void clearTeks(String div) {
+        if(div == "buku"){
+            tfIdBuku.setText("");
+            tfJudul.setText("");
+            tfPenerbit.setText("");
+            tfPenulis.setText("");
+            tfTahunTerbit.setText("");
+        } else if(div == "pustakawan"){
+            tfIdPustakawan.setText("");
+            tfNamaPustakawan.setText("");
+            tfAlamatPustakawan.setText("");
+        } else if(div == "anggota"){
+            tfIdAnggota.setText("");
+            tfNamaAnggota.setText("");
+            tfAlamatAnggota.setText("");
+            tfInstansiAnggota.setText("");
+        }
     }
 }
