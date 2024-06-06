@@ -20,6 +20,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Main extends Application {
     boolean flagEdit;
@@ -380,8 +382,18 @@ public class Main extends Application {
         });
         bDel.setOnAction(e -> {
             int idx = tableViewPustakawan.getSelectionModel().getSelectedIndex();
-            tableViewPustakawan.getItems().remove(idx);
-            clearTeks("pustakawan");
+            if(idx != -1) {
+                tableViewPustakawan.getItems().remove(idx);
+                clearTeks("pustakawan");
+            } else {
+                System.out.println("Silakan pilih satu data pustakawan!");
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Peringatan");
+                alert.setHeaderText(null);
+                alert.setContentText("Silakan pilih satu data pustakawan!");
+
+                alert.showAndWait();
+            }
         });
         TilePane tp1 = new TilePane();
         tp1.getChildren().addAll(bAdd, bEdit, bDel, bUpdate, bCancel);
