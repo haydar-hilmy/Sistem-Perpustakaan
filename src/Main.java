@@ -115,19 +115,19 @@ public class Main extends Application {
         }
         options[0].setOnAction(e -> {
             border.setCenter(addVBoxHome());
-            System.out.println("Click Home");
+            System.out.println("Halaman Home");
         });
         options[1].setOnAction(e -> {
             border.setCenter(addVBoxBuku());
-            System.out.println("Click Buku");
+            System.out.println("Halaman Buku");
         });
         options[2].setOnAction(e -> {
             border.setCenter(addVBoxPustakawan());
-            System.out.println("Click Pustakawan");
+            System.out.println("Halaman Pustakawan");
         });
         options[3].setOnAction(e -> {
             border.setCenter(addVBoxAnggota());
-            System.out.println("Click Anggota");
+            System.out.println("Halaman Anggota");
         });
         options[6].setOnAction(e -> {
             System.exit(0);
@@ -188,11 +188,6 @@ public class Main extends Application {
         penerbit.setCellValueFactory(new PropertyValueFactory<Buku, String>("penerbit"));
         penulis.setCellValueFactory(new PropertyValueFactory<Buku, String>("penulis"));
         tahun_terbit.setCellValueFactory(new PropertyValueFactory<Buku, Integer>("tahun_terbit"));
-        // tableView.setItems(listBuku);
-        // tableView.getItems().add(new Buku(1, "Buku A", "Erlangga","Joko",2024));
-        // tableView.getItems().add(new Buku(2, "Buku B", "Andik
-        // Offside","Dino",2024));// tableView.getItems().add(new Buku(3, "Buku C",
-        // "ElekMedia","Jojon",2024));
         sp.getChildren().add(tableView);
         return sp;
     }
@@ -299,8 +294,17 @@ public class Main extends Application {
         });
         bDel.setOnAction(e -> {
             int idx = tableView.getSelectionModel().getSelectedIndex();
-            tableView.getItems().remove(idx);
-            clearTeks("buku");
+            if(idx != -1){
+                tableView.getItems().remove(idx);
+                clearTeks("buku");
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Peringatan");
+                alert.setHeaderText(null);
+                alert.setContentText("Silakan pilih satu data buku!");
+
+                alert.showAndWait();
+            }
         });
         TilePane tp1 = new TilePane();
         // TilePane tp2 = new TilePane();
@@ -382,8 +386,17 @@ public class Main extends Application {
         });
         bDel.setOnAction(e -> {
             int idx = tableViewPustakawan.getSelectionModel().getSelectedIndex();
-            tableViewPustakawan.getItems().remove(idx);
-            clearTeks("pustakawan");
+            if(idx != -1){
+                tableViewPustakawan.getItems().remove(idx);
+                clearTeks("pustakawan");
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Peringatan");
+                alert.setHeaderText(null);
+                alert.setContentText("Silakan pilih satu data pustakawan!");
+
+                alert.showAndWait();
+            }
         });
         TilePane tp1 = new TilePane();
         tp1.getChildren().addAll(bAdd, bEdit, bDel, bUpdate, bCancel);
@@ -465,8 +478,17 @@ public class Main extends Application {
         });
         bDel.setOnAction(e -> {
             int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
-            tableViewAnggota.getItems().remove(idx);
-            clearTeks("anggota");
+            if(idx != -1) {
+                tableViewAnggota.getItems().remove(idx);
+                clearTeks("anggota");
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Peringatan");
+                alert.setHeaderText(null);
+                alert.setContentText("Silakan pilih satu data anggota!");
+
+                alert.showAndWait();
+            }
         });
         TilePane tp1 = new TilePane();
         tp1.getChildren().addAll(bAdd, bEdit, bDel, bUpdate, bCancel);
@@ -474,7 +496,7 @@ public class Main extends Application {
         gp.addRow(1, lbIdAnggota, tfIdAnggota);
         gp.addRow(2, lbNama, tfNamaAnggota);
         gp.addRow(3, lbAlamat, tfAlamatAnggota);
-        gp.addRow(3, lbInstansi, tfInstansiAnggota);
+        gp.addRow(4, lbInstansi, tfInstansiAnggota);
         gp.addRow(6, new Label(""), tp1);
         teksAktif(false, "anggota");
         buttonAktif(false);
