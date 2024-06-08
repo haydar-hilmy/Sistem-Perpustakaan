@@ -130,6 +130,7 @@ public class Main extends Application {
             System.out.println("Halaman Anggota");
         });
         options[6].setOnAction(e -> {
+            System.out.println("Makacii! :)");
             System.exit(0);
         });
         return vbox;
@@ -142,7 +143,7 @@ public class Main extends Application {
         fp.setAlignment(Pos.CENTER);
         FileInputStream input = null;
         try {
-            input = new FileInputStream("D:/UDINUS/s4 Pemrograman Berbasis Orientasi/pert9/bg.jpg");
+            input = new FileInputStream("D:/UDINUS/s4 Pemrograman Berbasis Orientasi/bg.jpg");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -161,7 +162,7 @@ public class Main extends Application {
         vb.setAlignment(Pos.CENTER);
         FileInputStream input = null;
         try {
-            input = new FileInputStream("D:/UDINUS/s4 Pemrograman Berbasis Orientasi/pert9/bg.jpg");
+            input = new FileInputStream("D:/UDINUS/s4 Pemrograman Berbasis Orientasi/bg.jpg");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
