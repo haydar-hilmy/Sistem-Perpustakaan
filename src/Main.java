@@ -20,10 +20,20 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class Main extends Application {
+    Connection conn = null;
+    PreparedStatment st = null;
+    ResultSet rs = null;
+
     boolean flagEdit;
     TableView<Buku> tableView;
     TableView<Pustakawan> tableViewPustakawan;
