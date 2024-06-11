@@ -4,7 +4,7 @@ import java.sql.SQLException;
 public class DBConnection {
     static String user = "root";
     static String pass = "";
-    static String url = "jdbc:mysql://localhost/dbperpustakaan";
+    static String url = "jdbc:mysql://localhost/pbo_perpus";
     static String driver = "com.mysql.cj.jdbc.Driver";
     public static Connection getConn(){
         Connection conn = null;

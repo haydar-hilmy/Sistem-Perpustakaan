@@ -1,5 +1,8 @@
 import javafx.application.Application;
 import javafx.beans.Observable;
+
+import javafx.collections.ObservableList;
+
 import javafx.beans.value.ObservableListValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +34,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class Main extends Application {
     Connection conn = null;
-    PreparedStatment st = null;
+    PreparedStatement st = null;
     ResultSet rs = null;
 
     boolean flagEdit;
@@ -199,6 +202,14 @@ public class Main extends Application {
         penerbit.setCellValueFactory(new PropertyValueFactory<Buku, String>("penerbit"));
         penulis.setCellValueFactory(new PropertyValueFactory<Buku, String>("penulis"));
         tahun_terbit.setCellValueFactory(new PropertyValueFactory<Buku, Integer>("tahun_terbit"));
+        idBuku.setPrefWidth(50);
+        judul.setPrefWidth(300);
+        penulis.setPrefWidth(200);
+        penerbit.setPrefWidth(200);
+        tahun_terbit.setPrefWidth(100);
+        tableView.setPrefWidth(850);
+        showListBuku();
+
         sp.getChildren().add(tableView);
         return sp;
     }
@@ -263,26 +274,81 @@ public class Main extends Application {
         bUpdate.setPrefWidth(100);
         bCancel.setPrefWidth(100);
         bUpdate.setOnAction(e -> {
+//            int idBuku, tahunTerbit;
+//            String judul, penulis, penerbit;
+//            idBuku = Integer.parseInt(tfIdBuku.getText());
+//            judul = tfJudul.getText();
+//            penulis = tfPenulis.getText();
+//            penerbit = tfPenerbit.getText();
+//            tahunTerbit = Integer.parseInt(tfTahunTerbit.getText());
+//            Buku b = new Buku(idBuku, judul, penerbit, penulis, tahunTerbit);
+//            if (flagEdit == false) {
+//                tableView.getItems().add(b);
+//            } else {
+//                int idx = tableView.getSelectionModel().getSelectedIndex();
+//                tableView.getItems().set(idx, b);
+//            }
+//            teksAktif(false, "buku");
+//            buttonAktif(false);
+//            clearTeks("buku");
+//            flagEdit = true;
+
             int idBuku, tahunTerbit;
             String judul, penulis, penerbit;
             idBuku = Integer.parseInt(tfIdBuku.getText());
             judul = tfJudul.getText();
             penulis = tfPenulis.getText();
             penerbit = tfPenerbit.getText();
-            tahunTerbit = Integer.parseInt(tfTahunTerbit.getText());
-            Buku b = new Buku(idBuku, judul, penerbit, penulis, tahunTerbit);
-            if (flagEdit == false) {
-                tableView.getItems().add(b);
-            } else {
-                int idx = tableView.getSelectionModel().getSelectedIndex();
-                tableView.getItems().set(idx, b);
+            tahunTerbit= Integer.parseInt(tfTahunTerbit.getText());
+            Buku b = new Buku(idBuku,judul,penerbit,penulis,tahunTerbit);if (flagEdit==false){
+// tableView.getItems().add(b);
+            String sql = "INSERT INTO buku (id_buku, judul, penerbit, penulis, tahun_terbit) VALUES (?,?,?,?,?)";
+            conn = DBConnection.getConn();
+            try {
+                st = conn.prepareStatement(sql);
+                st.setString(1,tfIdBuku.getText());
+                st.setString(2,tfJudul.getText());
+                st.setString(3,tfPenerbit.getText());
+                st.setString(4,tfPenulis.getText());
+                st.setString(5,tfTahunTerbit.getText());
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
+            } else {
+                int idx=tableView.getSelectionModel().getSelectedIndex();
+                String sql="UPDATE buku SET judul = ?, penerbit = ?, penulis = ?, tahun_terbit = ? where id_buku = ?";
+                conn = DBConnection.getConn();
+                try {
+                    st = conn.prepareStatement(sql);
+                    st.setString(1,tfJudul.getText());
+                    st.setString(2,tfPenerbit.getText());
+                    st.setString(3,tfPenulis.getText());
+                    st.setString(4,tfTahunTerbit.getText());
+                    st.setString(5,tfIdBuku.getText());
+                    st.executeUpdate();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+// tableView.getItems().set(idx,b);
+            }
+            showListBuku();
             teksAktif(false, "buku");
             buttonAktif(false);
             clearTeks("buku");
-            flagEdit = true;
+            flagEdit=true;
         });
         bEdit.setOnAction(e -> {
+//            buttonAktif(true);
+//            teksAktif(true, "buku");
+//            flagEdit = true;
+//            int idx = tableView.getSelectionModel().getSelectedIndex();
+//            tfIdBuku.setText(String.valueOf(tableView.getItems().get(idx).getIdBuku()));
+//            tfJudul.setText(tableView.getItems().get(idx).getJudul());
+//            tfPenerbit.setText(tableView.getItems().get(idx).getPenulis());
+//            tfPenulis.setText(tableView.getItems().get(idx).getPenulis());
+//            tfTahunTerbit.setText(String.valueOf(tableView.getItems().get(idx).getTahun_terbit()));
+
             buttonAktif(true);
             teksAktif(true, "buku");
             flagEdit = true;
@@ -304,17 +370,39 @@ public class Main extends Application {
             buttonAktif(false);
         });
         bDel.setOnAction(e -> {
-            int idx = tableView.getSelectionModel().getSelectedIndex();
-            if(idx != -1){
-                tableView.getItems().remove(idx);
-                clearTeks("buku");
-            } else {
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Peringatan");
-                alert.setHeaderText(null);
-                alert.setContentText("Silakan pilih satu data buku!");
+//            int idx = tableView.getSelectionModel().getSelectedIndex();
+//            if(idx != -1){
+//                tableView.getItems().remove(idx);
+//                clearTeks("buku");
+//            } else {
+//                Alert alert = new Alert(AlertType.WARNING);
+//                alert.setTitle("Peringatan");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Silakan pilih satu data buku!");
+//
+//                alert.showAndWait();
+//            }
 
-                alert.showAndWait();
+            int idx = tableView.getSelectionModel().getSelectedItem().getIdBuku();
+            String sql = "DELETE FROM buku WHERE id_buku = ?";
+            conn = DBConnection.getConn();
+            try{
+                if(idx != -1){
+                    st = conn.prepareStatement(sql);
+                    st.setString(1, String.valueOf(idx));
+                    st.executeUpdate();
+                    showListBuku();
+                    clearTeks("buku");
+                } else {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Peringatan");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Silakan pilih satu data buku!");
+
+                    alert.showAndWait();
+                }
+            } catch (SQLException ex){
+                throw new RuntimeException(ex);
             }
         });
         TilePane tp1 = new TilePane();
@@ -591,5 +679,37 @@ public class Main extends Application {
             tfAlamatAnggota.setText("");
             tfInstansiAnggota.setText("");
         }
+    }
+
+//    TAMBAHAN PADA MATERI JAVAFX 2 (connect database)
+    public ObservableList<Buku> getListBuku() {
+        ObservableList<Buku> listBuku = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM buku";
+        conn = DBConnection.getConn();
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Buku b = new Buku(rs.getInt("id_buku"), rs.getString("judul"), rs.getString("penerbit"), rs.getString("penulis"), rs.getInt("tahun_terbit"));
+                listBuku.add(b);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listBuku;
+    }
+
+    public void showListBuku(){
+        ObservableList<Buku> listBuku = getListBuku();
+        tableView.setItems(listBuku);
+    }
+
+    public void getData(){
+        Buku b = tableView.getSelectionModel().getSelectedItem();
+        tfIdBuku.setText(String.valueOf(b.getIdBuku()));
+        tfJudul.setText(b.getJudul());
+        tfPenerbit.setText(b.getPenerbit());
+        tfPenulis.setText(b.getPenulis());
+        tfTahunTerbit.setText(String.valueOf(b.getTahun_terbit()));
     }
 }
