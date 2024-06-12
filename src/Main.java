@@ -274,25 +274,6 @@ public class Main extends Application {
         bUpdate.setPrefWidth(100);
         bCancel.setPrefWidth(100);
         bUpdate.setOnAction(e -> {
-//            int idBuku, tahunTerbit;
-//            String judul, penulis, penerbit;
-//            idBuku = Integer.parseInt(tfIdBuku.getText());
-//            judul = tfJudul.getText();
-//            penulis = tfPenulis.getText();
-//            penerbit = tfPenerbit.getText();
-//            tahunTerbit = Integer.parseInt(tfTahunTerbit.getText());
-//            Buku b = new Buku(idBuku, judul, penerbit, penulis, tahunTerbit);
-//            if (flagEdit == false) {
-//                tableView.getItems().add(b);
-//            } else {
-//                int idx = tableView.getSelectionModel().getSelectedIndex();
-//                tableView.getItems().set(idx, b);
-//            }
-//            teksAktif(false, "buku");
-//            buttonAktif(false);
-//            clearTeks("buku");
-//            flagEdit = true;
-
             int idBuku, tahunTerbit;
             String judul, penulis, penerbit;
             idBuku = Integer.parseInt(tfIdBuku.getText());
@@ -300,8 +281,8 @@ public class Main extends Application {
             penulis = tfPenulis.getText();
             penerbit = tfPenerbit.getText();
             tahunTerbit= Integer.parseInt(tfTahunTerbit.getText());
-            Buku b = new Buku(idBuku,judul,penerbit,penulis,tahunTerbit);if (flagEdit==false){
-// tableView.getItems().add(b);
+            Buku b = new Buku(idBuku,judul,penerbit,penulis,tahunTerbit);
+            if (flagEdit == false){
             String sql = "INSERT INTO buku (id_buku, judul, penerbit, penulis, tahun_terbit) VALUES (?,?,?,?,?)";
             conn = DBConnection.getConn();
             try {
@@ -317,7 +298,7 @@ public class Main extends Application {
             }
             } else {
                 int idx=tableView.getSelectionModel().getSelectedIndex();
-                String sql="UPDATE buku SET judul = ?, penerbit = ?, penulis = ?, tahun_terbit = ? WHERE id_buku = ?";
+                String sql = "UPDATE buku SET judul = ?, penerbit = ?, penulis = ?, tahun_terbit = ? WHERE id_buku = ?";
                 conn = DBConnection.getConn();
                 try {
                     st = conn.prepareStatement(sql);
@@ -330,7 +311,6 @@ public class Main extends Application {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-// tableView.getItems().set(idx,b);
             }
             showListBuku();
             teksAktif(false, "buku");
@@ -339,16 +319,6 @@ public class Main extends Application {
             flagEdit=true;
         });
         bEdit.setOnAction(e -> {
-//            buttonAktif(true);
-//            teksAktif(true, "buku");
-//            flagEdit = true;
-//            int idx = tableView.getSelectionModel().getSelectedIndex();
-//            tfIdBuku.setText(String.valueOf(tableView.getItems().get(idx).getIdBuku()));
-//            tfJudul.setText(tableView.getItems().get(idx).getJudul());
-//            tfPenerbit.setText(tableView.getItems().get(idx).getPenulis());
-//            tfPenulis.setText(tableView.getItems().get(idx).getPenulis());
-//            tfTahunTerbit.setText(String.valueOf(tableView.getItems().get(idx).getTahun_terbit()));
-
             buttonAktif(true);
             teksAktif(true, "buku");
             flagEdit = true;
@@ -370,19 +340,6 @@ public class Main extends Application {
             buttonAktif(false);
         });
         bDel.setOnAction(e -> {
-//            int idx = tableView.getSelectionModel().getSelectedIndex();
-//            if(idx != -1){
-//                tableView.getItems().remove(idx);
-//                clearTeks("buku");
-//            } else {
-//                Alert alert = new Alert(AlertType.WARNING);
-//                alert.setTitle("Peringatan");
-//                alert.setHeaderText(null);
-//                alert.setContentText("Silakan pilih satu data buku!");
-//
-//                alert.showAndWait();
-//            }
-
             int idx = tableView.getSelectionModel().getSelectedItem().getIdBuku();
             String sql = "DELETE FROM buku WHERE id_buku = ?";
             conn = DBConnection.getConn();
@@ -537,6 +494,24 @@ public class Main extends Application {
         bUpdate.setPrefWidth(100);
         bCancel.setPrefWidth(100);
         bUpdate.setOnAction(e -> {
+//            int idAnggota;
+//            String nama, alamat, instansi;
+//            idAnggota = Integer.parseInt(tfIdAnggota.getText());
+//            nama = tfNamaAnggota.getText();
+//            alamat = tfAlamatAnggota.getText();
+//            instansi = tfInstansiAnggota.getText();
+//            Anggota ag = new Anggota(idAnggota, nama, alamat, instansi);
+//            if (flagEdit == false) {
+//                tableViewAnggota.getItems().add(ag);
+//            } else {
+//                int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
+//                tableViewAnggota.getItems().set(idx, ag);
+//            }
+//            teksAktif(false, "anggota");
+//            buttonAktif(false);
+//            clearTeks("anggota");
+//            flagEdit = true;
+
             int idAnggota;
             String nama, alamat, instansi;
             idAnggota = Integer.parseInt(tfIdAnggota.getText());
@@ -544,16 +519,40 @@ public class Main extends Application {
             alamat = tfAlamatAnggota.getText();
             instansi = tfInstansiAnggota.getText();
             Anggota ag = new Anggota(idAnggota, nama, alamat, instansi);
-            if (flagEdit == false) {
-                tableViewAnggota.getItems().add(ag);
+            if (flagEdit == false){
+                String sql = "INSERT INTO anggota (id_anggota, nama, alamat, instansi) VALUES (?,?,?,?)";
+                conn = DBConnection.getConn();
+                try {
+                    st = conn.prepareStatement(sql);
+                    st.setString(1,tfIdAnggota.getText());
+                    st.setString(2,tfNamaAnggota.getText());
+                    st.setString(3,tfAlamatAnggota.getText());
+                    st.setString(4,tfInstansiAnggota.getText());
+                    st.executeUpdate();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             } else {
-                int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
-                tableViewAnggota.getItems().set(idx, ag);
+                int idx = tableView.getSelectionModel().getSelectedIndex();
+                String sql = "UPDATE anggota SET nama = ?, alamat = ?, instansi = ? WHERE id_anggota = ?";
+                conn = DBConnection.getConn();
+                try {
+                    st = conn.prepareStatement(sql);
+                    st.setString(1,tfNamaAnggota.getText());
+                    st.setString(2,tfAlamatAnggota.getText());
+                    st.setString(3,tfInstansiAnggota.getText());
+                    st.setString(4,tfIdAnggota.getText());
+                    st.executeUpdate();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+            showListAnggota();
             teksAktif(false, "anggota");
             buttonAktif(false);
             clearTeks("anggota");
-            flagEdit = true;
+            flagEdit=true;
+
         });
         bEdit.setOnAction(e -> {
             buttonAktif(true);
@@ -699,9 +698,31 @@ public class Main extends Application {
         return listBuku;
     }
 
+    public ObservableList<Anggota> getListAnggota() {
+        ObservableList<Anggota> listAnggota = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM anggota";
+        conn = DBConnection.getConn();
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Anggota ag = new Anggota(rs.getInt("id_anggota"), rs.getString("nama"), rs.getString("alamat"), rs.getString("instansi"));
+                listAnggota.add(ag);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listAnggota;
+    }
+
     public void showListBuku(){
         ObservableList<Buku> listBuku = getListBuku();
         tableView.setItems(listBuku);
+    }
+
+    public void showListAnggota(){
+        ObservableList<Anggota> listAnggota = getListAnggota();
+        tableViewAnggota.setItems(listAnggota);
     }
 
     public void getData(){
