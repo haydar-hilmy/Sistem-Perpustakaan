@@ -317,7 +317,7 @@ public class Main extends Application {
             }
             } else {
                 int idx=tableView.getSelectionModel().getSelectedIndex();
-                String sql="UPDATE buku SET judul = ?, penerbit = ?, penulis = ?, tahun_terbit = ? where id_buku = ?";
+                String sql="UPDATE buku SET judul = ?, penerbit = ?, penulis = ?, tahun_terbit = ? WHERE id_buku = ?";
                 conn = DBConnection.getConn();
                 try {
                     st = conn.prepareStatement(sql);
