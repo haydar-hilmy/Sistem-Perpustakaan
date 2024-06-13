@@ -240,6 +240,13 @@ public class Main extends Application {
         namaAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, String>("nama"));
         alamatAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, String>("alamat"));
         instansiAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, String>("instansi"));
+        idAnggota.setPrefWidth(50);
+        namaAnggota.setPrefWidth(300);
+        alamatAnggota.setPrefWidth(200);
+        instansiAnggota.setPrefWidth(200);
+        tableViewAnggota.setPrefWidth(750);
+        showListAnggota();
+
         sp.getChildren().add(tableViewAnggota);
         return sp;
     }
@@ -533,7 +540,7 @@ public class Main extends Application {
                     throw new RuntimeException(ex);
                 }
             } else {
-                int idx = tableView.getSelectionModel().getSelectedIndex();
+                int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
                 String sql = "UPDATE anggota SET nama = ?, alamat = ?, instansi = ? WHERE id_anggota = ?";
                 conn = DBConnection.getConn();
                 try {
@@ -575,17 +582,26 @@ public class Main extends Application {
             buttonAktif(false);
         });
         bDel.setOnAction(e -> {
-            int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
-            if(idx != -1) {
-                tableViewAnggota.getItems().remove(idx);
-                clearTeks("anggota");
-            } else {
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Peringatan");
-                alert.setHeaderText(null);
-                alert.setContentText("Silakan pilih satu data anggota!");
+            int idx = tableViewAnggota.getSelectionModel().getSelectedItem().getIdAnggota();
+            String sql = "DELETE FROM anggota WHERE id_anggota = ?";
+            conn = DBConnection.getConn();
+            try {
+                if(idx != -1) {
+                    st = conn.prepareStatement(sql);
+                    st.setString(1, String.valueOf(idx));
+                    st.executeUpdate();
+                    showListAnggota();
+                    clearTeks("anggota");
+                } else {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Peringatan");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Silakan pilih satu data anggota!");
 
-                alert.showAndWait();
+                    alert.showAndWait();
+                }
+            } catch (SQLException ex){
+                throw new RuntimeException(ex);
             }
         });
         TilePane tp1 = new TilePane();
