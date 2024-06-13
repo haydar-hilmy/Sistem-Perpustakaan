@@ -224,6 +224,12 @@ public class Main extends Application {
         idPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, Integer>("idPustakawan"));
         namaPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, String>("nama"));
         alamatPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, String>("alamat"));
+        idPustakawan.setPrefWidth(50);
+        namaPustakawan.setPrefWidth(200);
+        alamatPustakawan.setPrefWidth(300);
+        tableViewPustakawan.setPrefWidth(550);
+        showListPustakawan();
+
         sp.getChildren().add(tableViewPustakawan);
         return sp;
     }
@@ -418,11 +424,32 @@ public class Main extends Application {
             alamat = tfAlamatPustakawan.getText();
             Pustakawan p = new Pustakawan(idPustakawan, nama, alamat);
             if (flagEdit == false) {
-                tableViewPustakawan.getItems().add(p);
+                String sql = "INSERT INTO pustakawan (id_pustakawan, nama, alamat) VALUES (?, ?, ?)";
+                conn = DBConnection.getConn();
+                try {
+                    st = conn.prepareStatement(sql);
+                    st.setString(1,tfIdPustakawan.getText());
+                    st.setString(2,tfNamaPustakawan.getText());
+                    st.setString(3,tfAlamatPustakawan.getText());
+                    st.executeUpdate();
+                } catch (SQLException ex){
+                    throw new RuntimeException(ex);
+                }
             } else {
                 int idx = tableViewPustakawan.getSelectionModel().getSelectedIndex();
-                tableViewPustakawan.getItems().set(idx, p);
+                String sql = "UPDATE pustakawan SET nama = ?, alamat = ? WHERE id_pustakawan = ?";
+                conn = DBConnection.getConn();
+                try{
+                    st = conn.prepareStatement(sql);
+                    st.setString(1,tfNamaPustakawan.getText());
+                    st.setString(2,tfAlamatPustakawan.getText());
+                    st.setString(3,tfIdPustakawan.getText());
+                    st.executeUpdate();
+                } catch (SQLException ex){
+                    throw new RuntimeException(ex);
+                }
             }
+            showListPustakawan();
             teksAktif(false, "pustakawan");
             buttonAktif(false);
             clearTeks("pustakawan");
@@ -448,17 +475,26 @@ public class Main extends Application {
             buttonAktif(false);
         });
         bDel.setOnAction(e -> {
-            int idx = tableViewPustakawan.getSelectionModel().getSelectedIndex();
-            if(idx != -1){
-                tableViewPustakawan.getItems().remove(idx);
-                clearTeks("pustakawan");
-            } else {
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Peringatan");
-                alert.setHeaderText(null);
-                alert.setContentText("Silakan pilih satu data pustakawan!");
+            int idx = tableViewPustakawan.getSelectionModel().getSelectedItem().getIdPustakawan();
+            String sql = "DELETE FROM pustakawan WHERE id_pustakawan = ?";
+            conn = DBConnection.getConn();
+            try{
+                if(idx != -1){
+                    st = conn.prepareStatement(sql);
+                    st.setString(1, String.valueOf(idx));
+                    st.executeUpdate();
+                    showListPustakawan();
+                    clearTeks("pustakawan");
+                } else {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Peringatan");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Silakan pilih satu data pustakawan!");
 
-                alert.showAndWait();
+                    alert.showAndWait();
+                }
+            } catch (SQLException ex){
+                throw new RuntimeException(ex);
             }
         });
         TilePane tp1 = new TilePane();
@@ -501,23 +537,6 @@ public class Main extends Application {
         bUpdate.setPrefWidth(100);
         bCancel.setPrefWidth(100);
         bUpdate.setOnAction(e -> {
-//            int idAnggota;
-//            String nama, alamat, instansi;
-//            idAnggota = Integer.parseInt(tfIdAnggota.getText());
-//            nama = tfNamaAnggota.getText();
-//            alamat = tfAlamatAnggota.getText();
-//            instansi = tfInstansiAnggota.getText();
-//            Anggota ag = new Anggota(idAnggota, nama, alamat, instansi);
-//            if (flagEdit == false) {
-//                tableViewAnggota.getItems().add(ag);
-//            } else {
-//                int idx = tableViewAnggota.getSelectionModel().getSelectedIndex();
-//                tableViewAnggota.getItems().set(idx, ag);
-//            }
-//            teksAktif(false, "anggota");
-//            buttonAktif(false);
-//            clearTeks("anggota");
-//            flagEdit = true;
 
             int idAnggota;
             String nama, alamat, instansi;
@@ -714,6 +733,23 @@ public class Main extends Application {
         return listBuku;
     }
 
+    public ObservableList<Pustakawan> getListPustakawan() {
+        ObservableList<Pustakawan> listPustakawan = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM pustakawan";
+        conn = DBConnection.getConn();
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Pustakawan p = new Pustakawan(rs.getInt("id_pustakawan"), rs.getString("nama"), rs.getString("alamat"));
+                listPustakawan.add(p);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listPustakawan;
+    }
+
     public ObservableList<Anggota> getListAnggota() {
         ObservableList<Anggota> listAnggota = FXCollections.observableArrayList();
         String sql = "SELECT * FROM anggota";
@@ -734,6 +770,11 @@ public class Main extends Application {
     public void showListBuku(){
         ObservableList<Buku> listBuku = getListBuku();
         tableView.setItems(listBuku);
+    }
+
+    public void showListPustakawan(){
+        ObservableList<Pustakawan> listPustakawan = getListPustakawan();
+        tableViewPustakawan.setItems(listPustakawan);
     }
 
     public void showListAnggota(){
