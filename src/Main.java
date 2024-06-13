@@ -338,7 +338,7 @@ public class Main extends Application {
             int idx = tableView.getSelectionModel().getSelectedIndex();
             tfIdBuku.setText(String.valueOf(tableView.getItems().get(idx).getIdBuku()));
             tfJudul.setText(tableView.getItems().get(idx).getJudul());
-            tfPenerbit.setText(tableView.getItems().get(idx).getPenulis());
+            tfPenerbit.setText(tableView.getItems().get(idx).getPenerbit());
             tfPenulis.setText(tableView.getItems().get(idx).getPenulis());
             tfTahunTerbit.setText(String.valueOf(tableView.getItems().get(idx).getTahun_terbit()));
         });
