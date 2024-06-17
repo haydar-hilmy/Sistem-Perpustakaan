@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -9,13 +10,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox prefHeight="420.0" prefWidth="171.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Button" />
-         </children>
-      </VBox>
-   </children>
-</HBox>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="649.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <tabs>
+    <Tab text="Buku">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="649.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="106.0" text="Cari Data  :" textAlignment="CENTER">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="196.0" promptText="Find Data" />
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Pustakawan">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+      <Tab text="Anggota">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
