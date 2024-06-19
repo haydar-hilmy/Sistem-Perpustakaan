@@ -32,7 +32,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView layoutX="4.0" prefHeight="157.0">
+                                    <TableView layoutX="4.0" prefHeight="157.0" prefWidth="650.0">
                                       <columns>
                                         <TableColumn prefWidth="34.0" text="Id" />
                                         <TableColumn prefWidth="116.0" text="Judul" />
