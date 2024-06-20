@@ -129,13 +129,13 @@
                         <TextField prefHeight="25.0" prefWidth="196.0" promptText="Find Anggota" />
                      </children>
                   </HBox>
-                  <TabPane layoutX="-5.0" layoutY="60.0" prefHeight="334.0" prefWidth="650.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tabPaneAnggota" layoutX="-5.0" layoutY="60.0" prefHeight="334.0" prefWidth="650.0" tabClosingPolicy="UNAVAILABLE">
                      <tabs>
-                        <Tab text="Table View">
+                        <Tab fx:id="tabAnggotaTableView" text="Table View">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="tvAnggota" layoutX="4.0" prefHeight="232.0" prefWidth="650.0">
+                                    <TableView fx:id="tvAnggota" layoutX="4.0" onMouseClicked="#chooseAnggota" prefHeight="232.0" prefWidth="650.0">
                                        <columns>
                                           <TableColumn fx:id="tcIdAnggota" prefWidth="34.0" text="Id" />
                                           <TableColumn fx:id="tcNamaAnggota" prefWidth="179.0" text="Nama" />
@@ -145,8 +145,8 @@
                                     </TableView>
                                     <HBox alignment="CENTER_LEFT" layoutY="229.0" prefHeight="75.0" prefWidth="649.0" spacing="24.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Edit" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Delete" />
+                                          <Button fx:id="btnEditAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Edit" />
+                                          <Button fx:id="btnDeleteAnggota" mnemonicParsing="false" onAction="#deleteAnggota" prefHeight="25.0" prefWidth="138.0" text="Delete" />
                                        </children>
                                        <padding>
                                           <Insets bottom="12.0" left="24.0" right="12.0" top="12.0" />
@@ -156,11 +156,11 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Form Data">
+                        <Tab fx:id="tabAnggotaForm" text="Form Data">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <GridPane prefHeight="159.0" prefWidth="649.0">
+                                    <GridPane prefHeight="159.0" prefWidth="649.0" AnchorPane.topAnchor="12.0">
                                        <children>
                                           <Label prefHeight="21.0" prefWidth="115.0" text="Nama" textAlignment="CENTER">
                                              <font>
@@ -186,16 +186,86 @@
                                                 <Insets left="24.0" />
                                              </padding>
                                           </Label>
-                                          <TextField prefHeight="35.0" prefWidth="350.0" promptText="Masukkan Nama" GridPane.columnIndex="1" />
-                                          <TextField prefHeight="35.0" prefWidth="530.0" promptText="Masukkan Alamat" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField prefHeight="35.0" prefWidth="530.0" promptText="Masukkan Instansi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Tambah" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="tfNamaAnggotaAdd" prefHeight="35.0" prefWidth="350.0" promptText="Masukkan Nama" GridPane.columnIndex="1" />
+                                          <TextField fx:id="tfAlamatAnggotaAdd" prefHeight="35.0" prefWidth="530.0" promptText="Masukkan Alamat" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="tfInstansiAnggotaAdd" prefHeight="35.0" prefWidth="530.0" promptText="Masukkan Instansi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                             <children>
+                                                <Button fx:id="btnSubmitAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Tambah" />
+                                                <Button fx:id="btnCancelAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Reset" />
+                                             </children>
+                                          </HBox>
                                        </children>
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="320.0" minWidth="10.0" prefWidth="119.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="567.0" minWidth="10.0" prefWidth="530.0" />
                                        </columnConstraints>
                                        <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="tabAnggotaFormEdit" text="Edit Data">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="234.0" prefWidth="649.0" AnchorPane.topAnchor="12.0">
+                                       <children>
+                                          <Label prefHeight="21.0" prefWidth="115.0" text="Nama" textAlignment="CENTER" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <GridPane.margin>
+                                                <Insets left="24.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label prefHeight="21.0" prefWidth="117.0" text="Instansi" textAlignment="CENTER" GridPane.rowIndex="3">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <GridPane.margin>
+                                                <Insets left="24.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label prefHeight="21.0" prefWidth="119.0" text="Alamat" textAlignment="CENTER" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="24.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="tfNamaAnggotaEdit" prefHeight="35.0" prefWidth="350.0" promptText="Edit Nama" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="tfAlamatAnggotaEdit" prefHeight="35.0" prefWidth="530.0" promptText="Edit Alamat" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="tfInstansiAnggotaEdit" prefHeight="35.0" prefWidth="530.0" promptText="Edit Instansi" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                             <children>
+                                                <Button fx:id="btnSubmitAnggotaEdit" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Edit" />
+                                                <Button fx:id="btnCancelAnggotaEdit" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Cancel" />
+                                             </children>
+                                          </HBox>
+                                          <TextField fx:id="tfIdAnggotaEdit" prefHeight="35.0" prefWidth="350.0" promptText="Id" GridPane.columnIndex="1" />
+                                          <Label prefHeight="21.0" prefWidth="115.0" text="Id" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="24.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="320.0" minWidth="10.0" prefWidth="119.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="567.0" minWidth="10.0" prefWidth="530.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
