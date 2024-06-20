@@ -143,10 +143,16 @@
                                           <TableColumn fx:id="tcInstansiAnggota" prefWidth="203.0" text="Instansi" />
                                        </columns>
                                     </TableView>
-                                    <HBox alignment="CENTER_LEFT" layoutY="229.0" prefHeight="75.0" prefWidth="649.0" spacing="24.0">
+                                    <HBox alignment="CENTER_LEFT" layoutY="229.0" prefHeight="75.0" prefWidth="649.0" spacing="16.0">
                                        <children>
-                                          <Button fx:id="btnEditAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Edit" />
-                                          <Button fx:id="btnDeleteAnggota" mnemonicParsing="false" onAction="#deleteAnggota" prefHeight="25.0" prefWidth="138.0" text="Delete" />
+                                          <Button fx:id="btnEditAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: #8B93FF;" text="Edit" textFill="#fff7fc">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font></Button>
+                                          <Button fx:id="btnDeleteAnggota" mnemonicParsing="false" onAction="#deleteAnggota" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: #EB455F;" text="Delete" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font></Button>
                                        </children>
                                        <padding>
                                           <Insets bottom="12.0" left="24.0" right="12.0" top="12.0" />
@@ -156,7 +162,7 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab fx:id="tabAnggotaForm" text="Form Data">
+                        <Tab fx:id="tabAnggotaForm" text="Add Data">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -191,8 +197,16 @@
                                           <TextField fx:id="tfInstansiAnggotaAdd" prefHeight="35.0" prefWidth="530.0" promptText="Masukkan Instansi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                              <children>
-                                                <Button fx:id="btnSubmitAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Tambah" />
-                                                <Button fx:id="btnCancelAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Reset" />
+                                                <Button fx:id="btnSubmitAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: #A1C45A; -fx-background-radius: 6px;" text="Tambah" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnCancelAnggota" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: transparent; -fx-border-width: 2px; -fx-border-color: #3F3F44; -fx-border-radius: 6px;" text="Reset">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                        </children>
@@ -213,7 +227,7 @@
                         </Tab>
                         <Tab fx:id="tabAnggotaFormEdit" text="Edit Data">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <AnchorPane fx:id="apAnggotaFormEdit" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <GridPane prefHeight="234.0" prefWidth="649.0" AnchorPane.topAnchor="12.0">
                                        <children>
@@ -246,8 +260,16 @@
                                           <TextField fx:id="tfInstansiAnggotaEdit" prefHeight="35.0" prefWidth="530.0" promptText="Edit Instansi" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                              <children>
-                                                <Button fx:id="btnSubmitAnggotaEdit" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Edit" />
-                                                <Button fx:id="btnCancelAnggotaEdit" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Cancel" />
+                                                <Button fx:id="btnSubmitAnggotaEdit" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: #A1C45A; -fx-background-radius: 6px;" text="Edit" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnCancelAnggotaEdit" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: transparent; -fx-border-width: 2px; -fx-border-color: #3F3F44; -fx-border-radius: 6px;" text="Cancel">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                           <TextField fx:id="tfIdAnggotaEdit" prefHeight="35.0" prefWidth="350.0" promptText="Id" GridPane.columnIndex="1" />

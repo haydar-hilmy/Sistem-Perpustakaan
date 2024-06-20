@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class AppController implements Initializable {
     ObservableList<Anggota> listAnggota = FXCollections.observableArrayList();
@@ -52,6 +53,9 @@ public class AppController implements Initializable {
     private Button btnCancelAnggota;
     @FXML
     private Button btnCancelAnggotaEdit;
+
+    @FXML
+    private AnchorPane apAnggotaFormEdit;
 
     // TEXTFIELD ANGGOTA
     @FXML
@@ -178,6 +182,12 @@ public class AppController implements Initializable {
         tfNamaAnggotaEdit.setEditable(isActive);
         tfAlamatAnggotaEdit.setEditable(isActive);
         tfInstansiAnggotaEdit.setEditable(isActive);
+        btnSubmitAnggotaEdit.setDisable(!isActive);
+        if(isActive == true){
+            apAnggotaFormEdit.setStyle("-fx-opacity: 1");
+        } else {
+            apAnggotaFormEdit.setStyle("-fx-opacity: 0.4");
+        }
     }
 
     void setTfAddAnggota(Boolean isActive, Boolean clear){
