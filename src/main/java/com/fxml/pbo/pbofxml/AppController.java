@@ -33,7 +33,7 @@ public class AppController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initTableAnggota();
-        loadData();
+        loadDataAnggota();
 //        setFilter();
 //        setButton(true,true,true,false,false);
 //        setTeks(false);
@@ -46,7 +46,7 @@ public class AppController implements Initializable {
         tcInstansiAnggota.setCellValueFactory(new PropertyValueFactory<Anggota,String>("instansi"));
     }
 
-    void loadData(){
+    void loadDataAnggota(){
         listAnggota = DBUtil.getDataAnggota();
         tvAnggota.setItems(listAnggota);
     }
