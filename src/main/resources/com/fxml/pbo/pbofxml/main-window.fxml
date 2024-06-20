@@ -126,7 +126,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="196.0" promptText="Find Anggota" />
+                        <TextField fx:id="tfSearchAnggota" prefHeight="25.0" prefWidth="196.0" promptText="Find by Name" />
                      </children>
                   </HBox>
                   <TabPane fx:id="tabPaneAnggota" layoutX="-5.0" layoutY="60.0" prefHeight="334.0" prefWidth="650.0" tabClosingPolicy="UNAVAILABLE">
@@ -160,7 +160,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <GridPane prefHeight="159.0" prefWidth="649.0" AnchorPane.topAnchor="12.0">
+                                    <GridPane prefHeight="180.0" prefWidth="649.0" AnchorPane.topAnchor="12.0">
                                        <children>
                                           <Label prefHeight="21.0" prefWidth="115.0" text="Nama" textAlignment="CENTER">
                                              <font>

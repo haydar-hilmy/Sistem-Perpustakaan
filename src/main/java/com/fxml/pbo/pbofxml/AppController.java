@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,6 +55,8 @@ public class AppController implements Initializable {
 
     // TEXTFIELD ANGGOTA
     @FXML
+    private TextField tfSearchAnggota;
+    @FXML
     private TextField tfIdAnggotaEdit, tfNamaAnggotaEdit, tfAlamatAnggotaEdit, tfInstansiAnggotaEdit;
     @FXML
     private TextField tfNamaAnggotaAdd, tfAlamatAnggotaAdd, tfInstansiAnggotaAdd;
@@ -70,7 +74,7 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setTfEditAnggota(false, true);
 
         btnEditAnggota.setOnAction(event -> {
             tabPaneAnggota.getSelectionModel().select(tabAnggotaFormEdit);
@@ -131,11 +135,31 @@ public class AppController implements Initializable {
 
         initTableAnggota();
         loadDataAnggota();
-//        setFilter();
-//        setButton(true,true,true,false,false);
-//        setTeks(false);
-//        setFilter();
+        setFilterAnggota();
     }
+
+    void setFilterAnggota(){
+        FilteredList<Anggota> filterDataAnggota = new FilteredList<>(listAnggota, ag -> true);
+        tfSearchAnggota.textProperty().addListener((observable, oldValue, newValue)->{
+            filterDataAnggota.setPredicate(Anggota->{
+                if (newValue.isEmpty() || newValue == null){
+                    return true;
+                }
+                String searchKeyword = newValue.toLowerCase();
+                if (Anggota.getNama().toLowerCase().indexOf(searchKeyword)>-1){
+                    return true;
+                } else if (String.valueOf(Anggota.getIdAnggota()).toLowerCase().indexOf(searchKeyword) >-1){
+                    return true;
+                }
+                else
+                    return false;
+            });
+        });
+        SortedList<Anggota> sortedDataAnggota = new SortedList<>(filterDataAnggota);
+        sortedDataAnggota.comparatorProperty().bind(tvAnggota.comparatorProperty());
+        tvAnggota.setItems(sortedDataAnggota);
+    }
+
     void initTableAnggota(){
         tcIdAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, Integer>("idAnggota"));
         tcNamaAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, String>("nama"));
