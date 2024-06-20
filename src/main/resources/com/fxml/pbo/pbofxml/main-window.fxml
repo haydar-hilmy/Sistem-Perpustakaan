@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="649.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="649.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fxml.pbo.pbofxml.AppController">
   <tabs>
     <Tab text="Buku">
       <content>
@@ -135,25 +135,34 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="tvAnggota" layoutX="4.0" prefHeight="157.0" prefWidth="650.0">
+                                    <TableView fx:id="tvAnggota" layoutX="4.0" prefHeight="232.0" prefWidth="650.0">
                                        <columns>
-                                          <TableColumn id="cIdAnggota" fx:id="cIdAnggota" prefWidth="34.0" text="Id" />
-                                          <TableColumn id="cNamaAnggota" fx:id="cNamaAnggota" prefWidth="179.0" text="Nama" />
-                                          <TableColumn id="cAlamatAnggota" fx:id="cAlamatAnggota" prefWidth="223.0" text="Alamat" />
-                                          <TableColumn id="cEmailAnggota" fx:id="cEmailAnggota" prefWidth="203.0" text="Email" />
+                                          <TableColumn fx:id="tcIdAnggota" prefWidth="34.0" text="Id" />
+                                          <TableColumn fx:id="tcNamaAnggota" prefWidth="179.0" text="Nama" />
+                                          <TableColumn fx:id="tcAlamatAnggota" prefWidth="223.0" text="Alamat" />
+                                          <TableColumn fx:id="tcInstansiAnggota" prefWidth="203.0" text="Instansi" />
                                        </columns>
                                     </TableView>
+                                    <HBox alignment="CENTER_LEFT" layoutY="229.0" prefHeight="75.0" prefWidth="649.0" spacing="24.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Edit" />
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Delete" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="12.0" left="24.0" right="12.0" top="12.0" />
+                                       </padding>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Add Data">
+                        <Tab text="Form Data">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <GridPane prefHeight="159.0" prefWidth="649.0">
                                        <children>
-                                          <Label prefHeight="21.0" prefWidth="115.0" text="Judul" textAlignment="CENTER">
+                                          <Label prefHeight="21.0" prefWidth="115.0" text="Nama" textAlignment="CENTER">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
@@ -161,7 +170,7 @@
                                                 <Insets left="24.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label prefHeight="21.0" prefWidth="117.0" text="Penulis" textAlignment="CENTER" GridPane.rowIndex="2">
+                                          <Label prefHeight="21.0" prefWidth="117.0" text="Instansi" textAlignment="CENTER" GridPane.rowIndex="2">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
@@ -169,7 +178,7 @@
                                                 <Insets left="24.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label prefHeight="21.0" prefWidth="119.0" text="Penerbit" textAlignment="CENTER" GridPane.rowIndex="1">
+                                          <Label prefHeight="21.0" prefWidth="119.0" text="Alamat" textAlignment="CENTER" GridPane.rowIndex="1">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
@@ -177,26 +186,16 @@
                                                 <Insets left="24.0" />
                                              </padding>
                                           </Label>
-                                          <Label prefHeight="21.0" prefWidth="119.0" text="Tahun Terbit" textAlignment="CENTER" GridPane.rowIndex="3">
-                                             <font>
-                                                <Font size="13.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="24.0" />
-                                             </padding>
-                                          </Label>
-                                          <TextField prefHeight="25.0" prefWidth="196.0" promptText="Judul buku" GridPane.columnIndex="1" />
-                                          <TextField prefHeight="25.0" prefWidth="196.0" promptText="Penerbit buku" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField prefHeight="35.0" prefWidth="538.0" promptText="Penulis buku" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <TextField prefHeight="12.0" prefWidth="535.0" promptText="Tahun terbit" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Tambah" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField prefHeight="35.0" prefWidth="350.0" promptText="Masukkan Nama" GridPane.columnIndex="1" />
+                                          <TextField prefHeight="35.0" prefWidth="530.0" promptText="Masukkan Alamat" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField prefHeight="35.0" prefWidth="530.0" promptText="Masukkan Instansi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Tambah" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                        </children>
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="320.0" minWidth="10.0" prefWidth="119.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="567.0" minWidth="10.0" prefWidth="530.0" />
                                        </columnConstraints>
                                        <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

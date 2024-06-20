@@ -1,11 +1,11 @@
 package com.fxml.pbo.pbofxml;
 
 public class Anggota {
-    private int idAnggota;
-    private String nama, alamat, instansi;
+    int idAnggota;
+    String nama, alamat, instansi;
 
-    public Anggota(int idAnngota, String nama, String alamat, String instansi) {
-        this.idAnggota = idAnngota;
+    public Anggota(int idAnggota, String nama, String alamat, String instansi) {
+        this.idAnggota = idAnggota;
         this.nama = nama;
         this.alamat = alamat;
         this.instansi = instansi;

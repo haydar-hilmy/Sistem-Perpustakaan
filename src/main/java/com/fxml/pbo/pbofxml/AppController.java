@@ -18,7 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class AppController implements Initializable {
-    ObservableList<Anggota> listAnggota = FXCollections.observableArrayList() ;
+    ObservableList<Anggota> listAnggota = FXCollections.observableArrayList();
     @FXML
     private TableView<Anggota> tvAnggota;
     @FXML
@@ -40,10 +40,10 @@ public class AppController implements Initializable {
 //        setFilter();
     }
     void initTableAnggota(){
-        tcIdAnggota.setCellValueFactory(new PropertyValueFactory<Anggota,Integer>("idAnggota"));
-        tcNamaAnggota.setCellValueFactory(new PropertyValueFactory<Anggota,String>("nama"));
-        tcAlamatAnggota.setCellValueFactory(new PropertyValueFactory<Anggota,String>("penerbit"));
-        tcInstansiAnggota.setCellValueFactory(new PropertyValueFactory<Anggota,String>("instansi"));
+        tcIdAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, Integer>("idAnggota"));
+        tcNamaAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, String>("nama"));
+        tcAlamatAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, String>("alamat"));
+        tcInstansiAnggota.setCellValueFactory(new PropertyValueFactory<Anggota, String>("instansi"));
     }
 
     void loadDataAnggota(){
