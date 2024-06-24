@@ -7,6 +7,7 @@ public class DBConnection {
     static String pass = "";
     static String url = "jdbc:mysql://localhost/pbo_perpus";
     static String driver = "com.mysql.cj.jdbc.Driver";
+
     public static Connection getConn(){
         Connection conn = null;
         try{
