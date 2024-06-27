@@ -55,4 +55,40 @@ public class DBUtil {
             return null;
         }
     }
+
+    public static ObservableList<Pustakawan> getDataPustakawan(){
+        ObservableList<Pustakawan> listPustakawan = FXCollections.observableArrayList();
+        try {
+            Connection c = DBConnection.getConn();
+            String sql = "SELECT * FROM pustakawan";
+            PreparedStatement ps = c.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Pustakawan m = new Pustakawan(rs.getInt("id_pustakawan"),rs.getString("nama"),rs.getString("alamat"));
+                listPustakawan.add(m);
+            }
+            return listPustakawan;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBUtil.class.getName()).log(Level.SEVERE, null,ex);
+            return null;
+        }
+    }
+
+    public static ObservableList<Anggota> getDataAnggota(){
+        ObservableList<Anggota> listAnggota = FXCollections.observableArrayList();
+        try {
+            Connection c = DBConnection.getConn();
+            String sql = "SELECT * FROM anggota";
+            PreparedStatement ps = c.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Anggota m = new Anggota(rs.getInt("id_anggota"),rs.getString("nama"),rs.getString("alamat"), rs.getString("instansi"));
+                listAnggota.add(m);
+            }
+            return listAnggota;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBUtil.class.getName()).log(Level.SEVERE, null,ex);
+            return null;
+        }
+    }
 }

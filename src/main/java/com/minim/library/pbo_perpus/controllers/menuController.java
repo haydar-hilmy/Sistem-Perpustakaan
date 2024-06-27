@@ -6,11 +6,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-public class menuController {
+public class menuController implements Initializable {
     @FXML
     private Button btnHome;
     @FXML
@@ -45,8 +46,10 @@ public class menuController {
     @FXML
     private Label lbTeks;
     public void initialize(URL location,ResourceBundle resources) {
+        System.out.println("Minim Library Present");
         try {
             homee();
+            System.out.println("Welcome Home");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -75,7 +78,7 @@ public class menuController {
     }
     @FXML
     public void anggota() throws IOException {
-        Parent fxml = FXMLLoader.load(getClass().getResource("fxml/fanggota.fxml"));
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/fanggota.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
     }

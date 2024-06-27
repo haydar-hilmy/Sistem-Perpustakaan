@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import com.minim.library.pbo_perpus.models.Buku;
+import com.minim.library.pbo_perpus.models.Pustakawan;
 import com.minim.library.pbo_perpus.models.DBConnection;
 import com.minim.library.pbo_perpus.models.DBUtil;
 import javafx.collections.FXCollections;
@@ -19,22 +19,18 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-public class bukuController implements Initializable {
+public class pustakawanController implements Initializable {
     Stage stage;
-    ObservableList<Buku> listBuku = FXCollections.observableArrayList() ;//ObservableList<Produk> listBrg ;
+    ObservableList<Pustakawan> listPustakawan = FXCollections.observableArrayList();
     boolean flagAdd = true;
     @FXML
-    private TableColumn<Buku, Integer> cidBuku;
+    private TableColumn<Pustakawan, Integer> cidPustakawan;
     @FXML
-    private TableColumn<Buku, String> cjudul;
+    private TableColumn<Pustakawan, String> cnama;
     @FXML
-    private TableColumn<Buku, String> cpenerbit;
+    private TableColumn<Pustakawan, String> calamat;
     @FXML
-    private TableColumn<Buku, String> cpenulis;
-    @FXML
-    private TableColumn<Buku, Integer> ctahun_terbit;
-    @FXML
-    private TableView<Buku> tbBuku;
+    private TableView<Pustakawan> tbPustakawan;
     @FXML
     private Button bAdd;
     @FXML
@@ -46,15 +42,11 @@ public class bukuController implements Initializable {
     @FXML
     private Button bUpdate;
     @FXML
-    private TextField tfidBuku;
+    private TextField tfidPustakawan;
     @FXML
-    private TextField tfjudul;
+    private TextField tfnama;
     @FXML
-    private TextField tfpenerbit;
-    @FXML
-    private TextField tfpenulis;
-    @FXML
-    private TextField tftahun_terbit;
+    private TextField tfalamat;
     @FXML
     private TextField tfsearch;
     @FXML
@@ -62,7 +54,7 @@ public class bukuController implements Initializable {
         setButton(false,false,false,true,true);
         clearTeks();
         setTeks(true);
-        tfidBuku.requestFocus();
+        tfnama.requestFocus();
     }
     @FXML
     void cancel(ActionEvent event) {
@@ -71,15 +63,15 @@ public class bukuController implements Initializable {
     }
     @FXML
     void del(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "hapusdata ?", ButtonType.YES, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "hapus data ?", ButtonType.YES, ButtonType.CANCEL);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             Connection conn = DBConnection.getConn();
-            String sql="DELETE FROM buku WHERE id_buku = ?";
+            String sql = "DELETE FROM pustakawan WHERE id_pustakawan = ?";
             PreparedStatement st = null;
             try {
                 st = conn.prepareStatement(sql);
-                st.setString(1,tfidBuku.getText());
+                st.setString(1,tfidPustakawan.getText());
                 st.executeUpdate();
                 loadData();
                 clearTeks();
@@ -93,20 +85,18 @@ public class bukuController implements Initializable {
         flagAdd=false;
         setButton(false,false,false,true,true);
         setTeks(true);
-        tfidBuku.setEditable(false);
-        tfjudul.requestFocus();
+        tfidPustakawan.setEditable(false);
+        tfnama.requestFocus();
     }
     @FXML
     void update(ActionEvent event) {
         Connection conn = DBConnection.getConn();
         if (flagAdd){
-            String sql="INSERT INTO buku(judul, penerbit, penulis, tahun_terbit) values (?,?,?,?)";
+            String sql="INSERT INTO pustakawan(nama, alamat) values (?, ?)";
             try {
                 PreparedStatement st = conn.prepareStatement(sql);
-                st.setString(1,tfjudul.getText());
-                st.setString(2,tfpenerbit.getText());
-                st.setString(3,tfpenulis.getText());
-                st.setInt(4,Integer.valueOf(tftahun_terbit.getText()));
+                st.setString(1, tfnama.getText());
+                st.setString(2, tfalamat.getText());
                 st.executeUpdate();
                 loadData();
             } catch (SQLException e) {
@@ -114,14 +104,12 @@ public class bukuController implements Initializable {
             }
 //do something..
         } else {
-            String sql="UPDATE buku SET judul = ?, penerbit = ?, penulis = ?, tahun_terbit = ? WHERE id_buku = ?";
+            String sql = "UPDATE pustakawan SET nama = ?, alamat = ? WHERE id_pustakawan = ?";
             try {
                 PreparedStatement st = conn.prepareStatement(sql);
-                st.setString(1,tfjudul.getText() );
-                st.setString(2,tfpenerbit.getText());
-                st.setString(3,tfpenulis.getText());
-                st.setInt(4,Integer.valueOf(tftahun_terbit.getText()));
-                st.setInt(5,Integer.valueOf(tfidBuku.getText()));
+                st.setString(1,tfnama.getText() );
+                st.setString(2,tfalamat.getText());
+                st.setInt(3,Integer.valueOf(tfidPustakawan.getText()));
                 st.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -137,44 +125,41 @@ public class bukuController implements Initializable {
     private TextField tfKeyword;
     @FXML
     void pilihProduk(MouseEvent event) {
-        Buku p = tbBuku.getSelectionModel().getSelectedItem();
-        tfidBuku.setText(String.valueOf(p.getIdBuku()));
-        tfjudul.setText(p.getJudul());
-        tfpenerbit.setText(p.getPenerbit());
-        tfpenulis.setText(p.getPenulis());
-        tftahun_terbit.setText(String.valueOf(p.getTahun_terbit()));
-//tfkode.setText(b.getKode());
-//MHS m = tbmhs.getSelectionModel().getSelectedItem();
+        Pustakawan p = tbPustakawan.getSelectionModel().getSelectedItem();
+        tfidPustakawan.setText(String.valueOf(p.getIdPustakawan()));
+        tfnama.setText(p.getNama());
+        tfalamat.setText(p.getAlamat());
     }
     void initTabel(){
-        cidBuku.setCellValueFactory(new PropertyValueFactory<Buku,Integer>("idBuku"));
-        cjudul.setCellValueFactory(new PropertyValueFactory<Buku,String>("judul"));
-        cpenerbit.setCellValueFactory(new PropertyValueFactory<Buku,String>("penerbit"));
-        cpenulis.setCellValueFactory(new PropertyValueFactory<Buku,String>("penulis"));
-        ctahun_terbit.setCellValueFactory(new PropertyValueFactory<Buku,Integer>("tahun_terbit"));
+        cidPustakawan.setCellValueFactory(new PropertyValueFactory<Pustakawan, Integer>("idPustakawan"));
+        cnama.setCellValueFactory(new PropertyValueFactory<Pustakawan, String>("nama"));
+        calamat.setCellValueFactory(new PropertyValueFactory<Pustakawan, String>("alamat"));
     }
     void loadData(){
-        listBuku= DBUtil.getDataBuku();
-        tbBuku.setItems(listBuku);
+        listPustakawan = DBUtil.getDataPustakawan();
+        tbPustakawan.setItems(listPustakawan);
     }
     void setFilter(){
-        FilteredList<Buku> filterData= new FilteredList<>(listBuku,b->true);tfsearch.textProperty().addListener((observable,oldValue,newValue)->{
-            filterData.setPredicate(Buku->{
+        System.out.println("Anggota Filtered");
+        FilteredList<Pustakawan> filterData= new FilteredList<>(listPustakawan,b->true);
+        tfsearch.textProperty().addListener((observable,oldValue,newValue)->{
+            filterData.setPredicate(Pustakawan->{
                 if (newValue.isEmpty() || newValue == null){
                     return true;
                 }
-                String searchKeyword=newValue.toLowerCase();
-                if (Buku.getJudul().toLowerCase().indexOf(searchKeyword)>-1){
+                String searchKeyword = newValue.toLowerCase();
+                if (Pustakawan.getNama().toLowerCase().indexOf(searchKeyword)>-1){
                     return true;
-                }else if (String.valueOf(Buku.getIdBuku()).toLowerCase().indexOf(searchKeyword) >-1){
+                }else if (String.valueOf(Pustakawan.getIdPustakawan()).toLowerCase().indexOf(searchKeyword) >-1){
                     return true;
-                    }
+                }
                 else
                     return false;
             });
         });
-        SortedList<Buku> sortedData = new SortedList<>(filterData);
-        sortedData.comparatorProperty().bind(tbBuku.comparatorProperty());tbBuku.setItems(sortedData);
+        SortedList<Pustakawan> sortedData = new SortedList<>(filterData);
+        sortedData.comparatorProperty().bind(tbPustakawan.comparatorProperty());
+        tbPustakawan.setItems(sortedData);
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -185,11 +170,9 @@ public class bukuController implements Initializable {
         setTeks(false);
     }
     protected void clearTeks(){
-        tfidBuku.setText(null);
-        tfjudul.setText(null);
-        tfpenerbit.setText(null);
-        tfpenulis.setText(null);
-        tftahun_terbit.setText(null);
+        tfidPustakawan.setText(null);
+        tfnama.setText(null);
+        tfalamat.setText(null);
     }
     protected void setButton(Boolean b1,Boolean b2,Boolean b3,Boolean b4,Boolean b5){
         bAdd.setDisable(!b1);
@@ -199,10 +182,8 @@ public class bukuController implements Initializable {
         bCancel.setDisable(!b5);
     }
     protected void setTeks(Boolean b){
-        tfidBuku.setEditable(false);
-        tfjudul.setEditable(b);
-        tfpenerbit.setEditable(b);
-        tfpenulis.setEditable(b);
-        tftahun_terbit.setEditable(b);
+        tfidPustakawan.setEditable(false);
+        tfnama.setEditable(b);
+        tfalamat.setEditable(b);
     }
 }
