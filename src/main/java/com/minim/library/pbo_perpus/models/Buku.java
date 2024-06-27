@@ -1,4 +1,4 @@
-package com.minim.library.models;
+package com.minim.library.pbo_perpus.models;
 
 public class Buku {
     private int idBuku, tahun_terbit;

@@ -6,6 +6,7 @@ module com.minim.library.pbo_perpus {
 
     opens com.minim.library.pbo_perpus to javafx.fxml;
     exports com.minim.library.pbo_perpus;
-    exports com.minim.library.models;
-    opens com.minim.library.models to javafx.fxml;
+    exports com.minim.library.pbo_perpus.controllers;
+    exports com.minim.library.pbo_perpus.models;
+    opens com.minim.library.pbo_perpus.controllers to javafx.fxml;
 }
