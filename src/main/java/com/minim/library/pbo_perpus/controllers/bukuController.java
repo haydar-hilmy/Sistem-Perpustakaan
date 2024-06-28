@@ -137,7 +137,7 @@ public class bukuController implements Initializable {
     private TextField tfKeyword;
     @FXML
     void pilihProduk(MouseEvent event) {
-        Buku p = tbBuku.getSelectionModel().getSelectedItem();
+        Buku p = tbBuku.getSelectionModel().getSelectedItem();  
         tfidBuku.setText(String.valueOf(p.getIdBuku()));
         tfjudul.setText(p.getJudul());
         tfpenerbit.setText(p.getPenerbit());
