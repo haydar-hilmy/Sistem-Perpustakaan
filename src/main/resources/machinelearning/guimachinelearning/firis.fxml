@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="CENTER" prefHeight="671.0" prefWidth="1269.0" spacing="5.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="machinelearning.guimachinelearning.WekaController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <AnchorPane prefHeight="362.0" prefWidth="1249.0">
+        <children>
+            <Label layoutX="14.0" layoutY="54.0" prefHeight="16.0"
+                   prefWidth="81.0" text="Dataset " textFill="#242528">
+                <font>
+                    <Font name="Berlin Sans FB" size="14.0" />
+                </font>
+            </Label>
+            <Label text="Klasifikasi" textFill="#0b1aeb">
+                <font>
+                    <Font name="Berlin Sans FB" size="38.0" />
+                </font>
+            </Label>
+            <HBox layoutX="14.0" layoutY="72.0" prefHeight="285.0"
+                  prefWidth="1234.0" spacing="5.0">
+                <children>
+                    <TableView fx:id="tvIris" prefHeight="309.0"
+                               prefWidth="400.0">
+                        <columns>
+                            <TableColumn fx:id="sepalLengthCol" prefWidth="75.0"
+                                         text="Sepal Lengh" />
+                            <TableColumn fx:id="sepalWidthCol" prefWidth="76.0"
+                                         text="Sepal Width" />
+                            <TableColumn fx:id="petalLengthCol" prefWidth="75.0"
+                                         text="Petal Length" />
+                            <TableColumn fx:id="petalWidthCol" prefWidth="75.0"
+                                         text="Petal Width" />
+                            <TableColumn fx:id="speciesCol" prefWidth="101.0"
+                                         text="spesies" />
+                        </columns>
+                    </TableView>
+                    <TableView fx:id="tvIrisTrain" layoutX="10.0" layoutY="10.0" prefHeight="309.0" prefWidth="522.0">
+                        <columns>
+                            <TableColumn fx:id="sepalLengthTrCol" prefWidth="75.0" text="Sepal Lengh" />
+                            <TableColumn fx:id="sepalWidthTrCol" prefWidth="74.0" text="Sepal Width" />
+                            <TableColumn fx:id="petalLengthTrCol" prefWidth="77.0" text="Petal Length" />
+                            <TableColumn fx:id="petalWidthTrCol" prefWidth="75.0" text="Petal Width" />
+                            <TableColumn fx:id="speciesTrCol" prefWidth="113.0" text="spesies" />
+                            <TableColumn fx:id="prediksiTrCol" prefWidth="104.0" text="prediksi" />
+                        </columns>
+                    </TableView>
+                    <TextArea fx:id="taHasil" prefHeight="309.0"
+                              prefWidth="317.0" />
+                </children>
+            </HBox>
+            <Label layoutX="413.0" layoutY="54.0" prefHeight="16.0"
+                   prefWidth="81.0" text="Data Testing" textFill="#242528">
+                <font>
+                    <Font name="Berlin Sans FB" size="14.0" />
+                </font>
+            </Label>
+            <Label layoutX="938.0" layoutY="54.0" prefHeight="16.0"
+                   prefWidth="171.0" text="Pengukuran Model" textFill="#242528">
+                <font>
+                    <Font name="Berlin Sans FB" size="14.0" />
+                </font>
+            </Label>
+        </children>
+    </AnchorPane>
+    <Pane prefHeight="45.0" prefWidth="1249.0">
+        <children>
+            <Button fx:id="btModelJ48" layoutX="155.0" layoutY="-2.0"
+                    onAction="#prosesJ48" prefHeight="33.0" prefWidth="127.0" text="Model - J48"/>
+            <Button fx:id="btnLoad" layoutX="14.0" layoutY="-2.0"
+                    onAction="#loadIris" prefHeight="33.0" prefWidth="127.0" text="Load DataIRIS" />
+        </children>
+    </Pane>
+    <VBox prefHeight="198.0" prefWidth="1249.0">
+        <children>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="418.0"
+                   text="Klasifikasi Data Baru" textFill="#f22b08">
+                <font>
+                    <Font name="Bell MT" size="17.0" />
+                </font>
+            </Label>
+            <HBox prefHeight="187.0" prefWidth="1249.0" spacing="10.0">
+                <children>
+                    <GridPane prefHeight="159.0" prefWidth="421.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="365.0" minWidth="10.0" prefWidth="128.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="604.0" minWidth="10.0" prefWidth="375.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                            vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                            vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                            vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                            vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                            vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                            <Label text="sepal Length" />
+                            <Label layoutX="10.0" layoutY="19.0" text="sepal Width" GridPane.rowIndex="1" />
+                            <Label layoutX="10.0" layoutY="52.0" text="petal
+Length" GridPane.rowIndex="2" />
+                            <Label layoutX="10.0" layoutY="82.0" text="petal Width" GridPane.rowIndex="3" />
+                            <Label layoutX="10.0" layoutY="114.0" text="species" GridPane.rowIndex="4" />
+                            <TextField fx:id="tfsepalL" prefHeight="25.0"
+                                       prefWidth="403.0" GridPane.columnIndex="1" />
+                            <TextField fx:id="tfsepalW" layoutX="159.0"
+                                       layoutY="14.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <TextField fx:id="tfpetalL" layoutX="159.0"
+                                       layoutY="46.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <TextField fx:id="tfpetalW" layoutX="159.0"
+                                       layoutY="78.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <TextField fx:id="tfspecies" layoutX="159.0"
+                                       layoutY="110.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        </children>
+                    </GridPane>
+                    <AnchorPane prefHeight="206.0" prefWidth="820.0">
+                    <children>
+                        <TextArea fx:id="taHasil2" layoutX="421.0"
+                                  prefHeight="191.0" prefWidth="395.0" />
+                        <Label layoutX="295.0" layoutY="88.0" prefHeight="16.0" prefWidth="125.0" text="Model Tree" textFill="#242528">
+                            <font>
+                                <Font name="Berlin Sans FB" size="14.0" />
+                            </font>
+                        </Label>
+                        <ImageView fitHeight="164.0" fitWidth="209.0"
+                                   layoutX="56.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@iris.jpeg" />
+                        </image>
+                    </ImageView>
+                </children>
+            </AnchorPane>
+        </children>
+    </HBox>
+</children>
+        </VBox>
+<HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="1249.0"
+      spacing="10.0">
+<children>
+    <Button fx:id="btnProcess" mnemonicParsing="false"
+            onAction="#prosesKlasifikasi" prefHeight="27.0" prefWidth="125.0"
+            text="Process" />
+    <Button fx:id="btnClear" mnemonicParsing="false" onAction="#clear" prefHeight="24.0" prefWidth="126.0" text="Clear" />
+</children>
+<padding>
+    <Insets bottom="5.0" top="5.0" />
+</padding>
+</HBox>
+        </VBox>
