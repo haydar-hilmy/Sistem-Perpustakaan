@@ -136,7 +136,7 @@ public class WekaController {
     void loadDataIris(){
         DataSource source = null;
         try {
-            source = new DataSource("D:/Iris.arff");
+            source = new DataSource("D:/UDINUS/s4 Pemrograman Berbasis Orientasi/iris.arff");
             Instances data = source.getDataSet();
             data1 = data;
             ObservableList<IrisData> datairis = convertInstancesToIrisData(data);
